@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>Secret Login Screen</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    var email,password;
+    $("#submit").click(function(){
+        username=$("#username").val();
+        password=$("#password").val();
+        $.post("/login",{username:username,password:password},function(data){	
+            if(data==='admin') {
+                window.location.href="https://hollowaycw.com/cave";
+            } else if(data ==='guest'){
+		window.location.href="https://hollowaycw.com";	
+	    }
+        });
+    });
+});
+</script>
+</head>
+<body>
+<input type="text" size="40" placeholder="Type your username" id="username"><br />
+<input type="password" size="40" placeholder="Type your password" id="password"><br />
+<input type="button" value="Submit" id="submit">
+</body>
+</html>

@@ -1,0 +1,324 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>HollowayCW Cave</title>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  </head>
+  <body>
+
+    <div class="button-bar">
+        <button><a href="/">Dashboard</a></button>
+
+      <button onclick="getAllData()">Refresh All Data</button>
+    <!--  <button onclick="showCommands()">Show Commands Data</button> ignore for now -->
+    <div hidden class="show"></div>
+      <button onclick="show(this)" name="config">Show Config Data</button><!-- only show bot's name, joined channel, admin users array and mod users array, only editable is mod/admin arrays -->
+      <button onclick="show(this)" name="discord">Show Discord Data</button><!-- show everything except tokens, all editable -->
+      <button onclick="show(this)" name="features">Show Features Data</button><!-- show everything, all editable -->
+      <button onclick="show(this)" name="lottery">Show Lottery Data</button><!-- show settings - status, keyword, subonly bool -->
+      <button onclick="show(this)" name="moderation">Show Mod Data</button><!-- show all regexes - name, timeout length, pattern, all editable -->
+      <button onclick="show(this)" name="pubsub">Show Pubsub Data</button><!-- show all, all editable -->
+      <button onclick="show(this)" name="poll">Show Poll Data</button><!-- show status and current options with json data (name and count) -->
+      <button onclick="show(this)" name="bird">Show Bird Data</button><!-- show info - backup access  -->
+    </div>
+
+
+    <div id="config">
+      config data
+
+    </div>
+
+    <div id="discord">
+discord data
+
+    </div>
+
+    <div id="features">
+feature data
+
+    </div>
+
+    <div id="lottery">
+
+    </div>
+
+    <div id="moderation">
+
+
+    </div>
+
+    <div id="pubsub">
+
+
+    </div>
+
+    <div id="poll">
+
+
+    </div>
+
+    <div id="bird">
+
+
+    </div>
+    <script>
+      $(document).ready(function(){
+        //to set data on load
+        getData();
+});
+
+
+//ex get request to server
+//expected response json of all data
+function getData(){
+  console.log('sending get request');
+  $.ajax({
+    url: '/caveInfo',
+    type: 'get',
+    success:function(data){
+      console.log(data);
+    }
+  });
+}
+
+
+//ex post specific data
+function postData(){
+  $.ajax({
+    url: '/cave',
+    type: 'post',
+    data: { action: 'addVotes', user: username , points: points },
+    success:function(data){
+      console.log("sent gameID to bot");
+      console.log(data);
+
+      //fill label or alert with worked message
+      refreshData();
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert("Error occurred in request");
+      }
+  });
+}
+
+//ex post form
+function submitEditCommand(){
+  $.ajax({
+    url: '/submitCommand',
+    type: 'post',
+    data: $('#commandForm').serialize(),
+    success:function(data){
+      console.log('submitted command edit');
+      console.log(data);
+      if(data === "duplicate"){
+        document.getElementById("submitStatus").innerHTML = "Command already exists"
+      }
+      else if(data === "200 OK"){
+        document.getElementById("submitStatus").innerHTML = "Changed successful"
+      }
+      getCommands(); //reset command list to ensure changes
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert("Error occurred in edit request");
+      }
+  });
+};
+
+
+//page funtions for display
+function show(button){
+  var name = button.name;
+  switch(name){
+    case "config":
+      document.querySelector('.show').classList.remove("show");
+      document.getElementById('config').className = "show";
+      break;
+    case "discord":
+      document.querySelector('.show').classList.remove("show");
+      document.getElementById('discord').className = "show";
+      break;
+    case "features":
+      document.querySelector('.show').classList.remove("show");
+      document.getElementById('features').className = "show";
+      break;
+    case "lottery":
+      document.querySelector('.show').classList.remove("show");
+      document.getElementById('lottery').className = "show";
+      break;
+    case "moderation":
+      document.querySelector('.show').classList.remove("show");
+      document.getElementById('moderation').className = "show";
+      break;
+    case "pubsub":
+      document.querySelector('.show').classList.remove("show");
+      document.getElementById('pubsub').className = "show";
+      break;
+    case "poll":
+      document.querySelector('.show').classList.remove("show");
+      document.getElementById('poll').className = "show";
+      break;
+    case "bird":
+      document.querySelector('.show').classList.remove("show");
+      document.getElementById('bird').className = "show";
+      break;
+  }
+}
+</script>
+<style>
+
+  #config.show, #discord.show, #features.show, #lottery.show, #mod.show, #pubsub.show, #bird.show {
+    visibility: visible;
+    display: flex;
+    position:relative;
+    left: 10px;
+    background-color: black;
+  }
+
+
+  #config, #discord, #features, #lottery, #mod, #pubsub, #bird {
+    visibility: hidden;
+    display: none;
+  }
+
+  html, div {
+  --scrollbarBG: #2B2C2D;
+  --thumbBG: #696F73;;
+  }
+  body::-webkit-scrollbar {
+  width: 11px;
+  }
+  body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+  }
+  body::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+  }
+  body::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG) ;
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+  width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+  background: #2B2C2D;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+  background: #09a0ad;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+  background: #064860;
+  }
+
+
+
+    body {
+      color: white;
+      font-family: 'Comfortaa', cursive;
+    background-color: #3A3E41;
+    }
+
+    .button-bar {
+      top: 10px;
+      left: 30px;
+      border: 2px solid #09a0ad;
+      border-radius: 10px;
+      padding: 10px;
+      width: 125px;
+      overflow: hidden;
+        float:left;
+    }
+    .button-bar > button {
+      color: white;
+      background-color: #09a0ad;
+      border: 2px solid #09a0ad;
+      border-radius: 20px;
+      font-size: 18px;
+      cursor: pointer;
+      width: 125px;
+      margin-bottom: 8px;
+      font-family: 'Comfortaa', cursive;
+    }
+
+    button a {
+      display: block;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+    }
+
+
+    .input-bar {
+      position:absolute;
+      display: block;
+      top: 10px;
+      left: 500px;
+      border: 2px solid #09a0ad;
+      border-radius: 10px;
+      padding: 10px;
+      width: 190px;
+      height: 650px;
+    }
+
+    .input-bar > form > #values, #minutes, #hours{
+      color: white;
+      background-color: #09a0ad;
+      border: 2px solid #09a0ad;
+      border-radius: 20px;
+      font-size: 20px;
+      margin: 8px;
+      font-family: 'Comfortaa', cursive;
+    }
+    #valuesForm > input,#addMinutesForm > input,#maxHoursForm > input {
+      border-radius: 15px;
+      margin: 5px;
+      cursor: pointer;
+      font-family: 'Comfortaa', cursive;
+      margin-left: 20px;
+    }
+    #maxHoursForm > label, #addMinutesForm > label {
+      border-top: 2px solid #09a0ad;
+      padding-top: 5px;
+    }
+
+    .data-bar {
+      position:absolute;
+      top: 10px;
+      left: 800px;
+      border: 2px solid #09a0ad;
+      border-radius: 10px;
+      padding: 10px;
+      width: 250px;
+      height: 250px;
+    }
+    .data-bar > #baseLabel {
+      position: relative;
+    }
+  .data-bar > #subLabel {
+    position: relative;
+    top: 30px;
+  }
+  .data-bar > #dollarLabel {
+    position: relative;
+    top: 60px;
+  }
+  .data-bar > #desc {
+    position: relative;
+    top: 100px;
+    border-top: 2px solid #09a0ad;
+    padding-top: 10px;
+  }
+
+  </style>
+  </body>
+</html>

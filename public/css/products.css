@@ -1,0 +1,114 @@
+  header {
+    border-bottom: 2px solid #7f7f7f;
+  }
+  .header {
+  		text-align: left;
+  		font-weight: 600;
+  		width: 100%;
+  		margin-top: 20px;
+  }
+
+  #mainLogo {
+    width: 120px;
+  }
+  #contactBtn {
+    float: right;
+    margin: 20px;
+    margin-top: 40px;
+    font-size: 25;
+  }
+  #cartBtn {
+    float: right;
+    margin: 20px;
+    margin-top: 40px;
+    font-size: 25;
+  }
+
+  body {
+    margin: 0 auto;
+    background-color: #272C34;
+    color: #AAB2BE;
+    max-width: 1000px;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  a {
+    color: #AAB2BE;
+    text-decoration: none;
+  }
+
+  .menu-grid-container {
+    margin: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 2px solid #7f7f7f;
+  }
+  .menu-item {
+    cursor: pointer;
+    text-align: center;
+  }
+  .grid-container {
+    margin: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 2px solid #7f7f7f;
+  }
+
+  .thumbnail img {
+    max-height: 150px;
+}
+
+.thumbnail .description {
+    color: #7f7f7f;
+}
+
+
+.btn {
+  background-color: transparent;
+  border: 2px solid #AAB2BE;
+  border-radius: 0.2em;
+  color: #AAB2BE;
+  cursor: pointer;
+  padding: 5;
+
+  transition: all 150ms ease-in-out;
+}
+.btn:hover{
+  color: #fff;
+  outline: 0;
+  box-shadow: 0 0 10px 0 #AAB2BE inset, 0 0 10px 4px #AAB2BE;
+}
+
+
+.dice {
+  display: block;
+}
+
+.hGoods {
+  display: block;
+}
+
+.custom {
+  display: block;
+}
+
+.item {
+
+padding: 1rem;
+  position: relative;
+}
+
+.buyBtn {
+  float: right;
+  top: 55;
+  right: 15;
+  position: absolute;
+}
+.price {
+    font-weight: bold;
+    font-size: 18px;
+    float: left;
+    top: 125;
+    right: 50;
+    position: absolute;
+}

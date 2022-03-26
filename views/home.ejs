@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Holloway CW</title>
+    <base href="/"/>
+    <link rel="icon" type="image/png" href="img/HCW_favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  </head>
+
+  <body>
+    <div class="info">
+      Site is temporarily under construction. Checkout the links below or feel free to contact me.
+    </div>
+	<div class="header">
+
+        Contact <br> </h1>
+          <div id="contact">
+       <p>Email: <a href="mailto:m.holloway.cw@gmail.com">m.holloway.cw@gmail.com</a></p>
+         <form id="contactForm">
+           <label>Name
+           <input type="text" class="contactBox" id="nameBox" name="name"></input></br>
+         </label>
+         <label>Email
+           <input type="email" class="contactBox" id="emailBox" name="email" required
+		oninvalid="this.setCustomValidity('Invalid Email')" oninput="this.setCustomValidity('')"></input></br>
+         </label>
+         <label>Question or Message:</label></br>
+           <textarea rows=4 cols=50 class="contactBox" id="messageBox" name="message" required></textarea></br>
+           <button type="submit" class="button">Submit</button>
+         </form>
+         <p id='submitStatus'></p>
+    </div>
+</div>
+
+
+<div class="links">
+  <a href="https://www.raxastudios.com" target="_blank"><img id="logoR" src="img/logoWhite.png"/></a>
+  <a href="https://www.twitter.com/holloway_cw_" target="_blank"><img id="logo" src="img/twitterlogo.png"/></a>
+  <a href="https://www.instagram.com/holloway_cw/" target="_blank"><img id="logo" src="img/instalogo.png"/></a>
+  <a href="https://www.tiktok.com/@holloway.cw" target="_blank"><img id="logo" src="img/tiktoklogo.png"/></a>
+  <a href="https://www.youtube.com/channel/UCJOBru42PMrHTrbkySZYRHw" target="_blank"><img id="logo" style="width: 65px;" src="img/youtubelogo.png"/></a>
+  <a href="https://www.twitch.tv/raxa" target="_blank"><img id="logo" src="img/twitchlogo.png"/></a>
+  <a href="https://www.etsy.com/shop/HollowayCW" target="_blank"><img id="logo" style="width: 75px;" src="img/etsylogo.png"/></a>
+  </div>
+
+<script>
+
+$('#contactForm').submit(function(){
+  var d = $('#contactForm').serialize();
+  submitContactForm();
+  return false;
+})
+
+function submitContactForm(){
+  $.ajax({
+    url:'/submitContact',
+    type:'POST',
+    data: $('#contactForm').serialize(),
+    success:function(data){
+      document.getElementById('submitStatus').innerHTML = 'Message successfully sent.';
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown){
+      console.log(errorThrown);
+      document.getElementById('submitStatus').innerHTML = 'A server error occurred, please try emailing me instead.';
+    }
+  })
+}
+</script>
+<style>
+.info {
+		text-align: center;
+		font-weight: 600;
+		width: 100%;
+		margin-top: 20px;
+}
+.header {
+		text-align: center;
+		font-weight: 600;
+		width: 100%;
+		margin-top: 20px;
+}
+
+body {
+  margin: 0 auto;
+  background-color: #272C34;
+  color: #AAB2BE;
+  max-width: 1000px;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+a {
+  color: #AAB2BE;
+}
+
+.indented{
+  text-indent: 50px;
+}
+
+
+.button {
+  background-color: transparent;
+  border: 2px solid #AAB2BE;
+  border-radius: 1em;
+  color: #AAB2BE;
+  cursor: pointer;
+
+
+  transition: all 150ms ease-in-out;
+}
+.button:hover{
+  color: #fff;
+  outline: 0;
+  box-shadow: 0 0 10px 0 #AAB2BE inset, 0 0 10px 4px #AAB2BE;
+}
+
+.contactBox {
+  background-color: #AAB2BE;
+}
+
+
+#contact {
+  margin-left: 50px;
+}
+#nameBox {
+  margin-left: 12px !important;
+  margin: 15px;
+}
+#emailBox {
+  margin-left: 5px !important;
+  margin: 15px;
+}
+#messageBox {
+  margin-left: 0px !important;
+  margin: 15px;
+  max-width: 300px;
+}
+
+
+.links {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		text-align: center;
+}
+#logo {
+		width: 50px;
+		padding: 15px;
+}
+#logoR {
+		width: 90px;
+		height: 80px;
+}
+</style>
+</body>
+</html>
